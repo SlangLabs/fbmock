@@ -8,6 +8,7 @@ public class FbMockApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
+        // sets the context to slang voice interface during onCreate
         SlangVoiceInterface.init(this);
     }
 }

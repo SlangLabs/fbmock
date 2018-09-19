@@ -54,9 +54,10 @@ public class SlangVoiceInterface
 
     }
 
-    // Action to handle user profile
+
     private static void registerActions() throws SlangApplicationUninitializedException
     {
+        // Action to handle user profile
         SlangApplication.getIntentDescriptor("show_profile").setResolutionAction(new DefaultResolvedIntentAction() {
 
             @Override
@@ -76,6 +77,8 @@ public class SlangVoiceInterface
 
         });
 
+
+        // Action to handle home page
         SlangApplication.getIntentDescriptor("home").setResolutionAction(new DefaultResolvedIntentAction() {
 
             @Override
@@ -95,6 +98,7 @@ public class SlangVoiceInterface
 
         });
 
+        // Action to handle user liked page
         SlangApplication.getIntentDescriptor("page").setResolutionAction(new DefaultResolvedIntentAction() {
 
             @Override
@@ -113,6 +117,7 @@ public class SlangVoiceInterface
             }
         });
 
+        // Action to handle language preference
         SlangApplication.getIntentDescriptor("language").setResolutionAction(new DefaultResolvedIntentAction() {
 
             @Override
@@ -132,6 +137,8 @@ public class SlangVoiceInterface
 
         });
 
+
+        // Action to handle payment setting
         SlangApplication.getIntentDescriptor("payment").setResolutionAction(new DefaultResolvedIntentAction() {
 
             @Override

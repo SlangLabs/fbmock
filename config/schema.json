@@ -1,0 +1,140 @@
+{
+  "name": "FacebookMock",
+  "id": "f2b960b0ce124bed81009355a1f6bb69",
+  "types": [],
+  "imports": [
+    "std.domain.common"
+  ],
+  "intents": [
+    {
+      "name": "home",
+      "actions": [],
+      "help": [],
+      "entities": [],
+      "examples": [
+        [
+          {
+            "text": "take me to home"
+          }
+        ],
+        [
+          {
+            "text": "show feed"
+          }
+        ],
+        [
+          {
+            "text": "show home page"
+          }
+        ],
+        [
+          {
+            "text": "Take me to home"
+          }
+        ]
+      ]
+    },
+    {
+      "name": "language",
+      "actions": [],
+      "help": [],
+      "entities": [],
+      "examples": [
+        [
+          {
+            "text": "show language"
+          }
+        ],
+        [
+          {
+            "text": "change language"
+          }
+        ]
+      ]
+    },
+    {
+      "name": "page",
+      "actions": [],
+      "help": [],
+      "entities": [],
+      "examples": [
+        [
+          {
+            "text": "get slanglab page"
+          }
+        ],
+        [
+          {
+            "text": "show slanglab page"
+          }
+        ],
+        [
+          {
+            "text": "get slanglabs page"
+          }
+        ],
+        [
+          {
+            "text": "show slanglabs page"
+          }
+        ]
+      ]
+    },
+    {
+      "name": "payment",
+      "actions": [],
+      "help": [],
+      "entities": [],
+      "examples": [
+        [
+          {
+            "text": "show payment method"
+          }
+        ],
+        [
+          {
+            "text": "show purchase order"
+          }
+        ],
+        [
+          {
+            "text": "show payment history"
+          }
+        ],
+        [
+          {
+            "text": "manage payment"
+          }
+        ],
+        [
+          {
+            "text": "show payment"
+          }
+        ]
+      ]
+    },
+    {
+      "name": "show_profile",
+      "actions": [],
+      "help": [],
+      "entities": [],
+      "examples": [
+        [
+          {
+            "text": "take me to my profile"
+          }
+        ],
+        [
+          {
+            "text": "show mohsin mumtaz profile"
+          }
+        ],
+        [
+          {
+            "text": "show my profile"
+          }
+        ]
+      ]
+    }
+  ]
+}

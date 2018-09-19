@@ -15,9 +15,9 @@ public class MainActivity extends AppCompatActivity {
 
         String activity_mode;
 
-        ImageView image= (ImageView) findViewById(R.id.image);
+        ImageView image= (ImageView) findViewById(R.id.image); // gets the image from layout
 
-        Intent intent = getIntent();
+        Intent intent = getIntent(); // receive intent triggered from SlackVoiceInterface
 
         if(intent.getStringExtra(ActivityList.ACTIVITY_MODE) != null)
         {
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
         if(image !=null)
         {
-            image.setImageResource(screen);
+            image.setImageResource(screen); //sets the image to a screen background
         }
     }
 }
