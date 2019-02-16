@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">FacebookMock</string>
+    <string name="buddyId">ece258c89e724cd6bec34cbfc5241ae7</string>
+    <string name="authKey">c80525dd5fa146d6a3a1aba91fc5d6b9</string>
 </resources>

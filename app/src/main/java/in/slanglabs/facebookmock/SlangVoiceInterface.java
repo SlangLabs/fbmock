@@ -1,162 +1,126 @@
 package in.slanglabs.facebookmock;
 
-import android.app.Application;
 import android.content.Intent;
-import android.widget.Toast;
+import android.content.Context;
+import android.app.Application;
 
-import in.slanglabs.platform.application.ISlangApplicationStateListener;
-import in.slanglabs.platform.application.SlangApplication;
-import in.slanglabs.platform.application.SlangApplicationUninitializedException;
-import in.slanglabs.platform.application.actions.DefaultResolvedIntentAction;
-import in.slanglabs.platform.session.SlangResolvedIntent;
-import in.slanglabs.platform.session.SlangSession;
+import in.slanglabs.platform.SlangBuddy;
+import in.slanglabs.platform.SlangIntent;
+import in.slanglabs.platform.SlangLocale;
+import in.slanglabs.platform.SlangSession;
+import in.slanglabs.platform.SlangBuddyOptions;
+import in.slanglabs.platform.action.SlangIntentAction;
+
+import static in.slanglabs.platform.action.SlangAction.Status.SUCCESS;
 
 public class SlangVoiceInterface
 {
-    private static Application application_context;
+    private static Context app_context;
 
     public static void init(final Application application_context)
     {
-        SlangVoiceInterface.application_context = application_context; //set the app context to class variable
+        app_context = application_context; //set the app context to class variable
 
         //initialize the slang voice
 
-        SlangApplication
-                .initialize(
-                        application_context,
-                        R.string.appId,
-                        R.string.authKey,
-                        new ISlangApplicationStateListener() {
-                            @Override
-                            public void onInitialized() {
-                                try {
-                                    registerActions();
-                                } catch (SlangApplicationUninitializedException e) {
-                                    Toast.makeText(
-                                            application_context,
-                                            "Slang uninitialized - " + e.getLocalizedMessage(),
-                                            Toast.LENGTH_LONG
-                                    ).show();
-                                }
-                            }
+        try {
 
-                            @Override
-                            public void onInitializationFailed(FailureReason failureReason) {
-                                Toast.makeText(
-                                        application_context,
-                                        "Could not initialize slang!",
-                                        Toast.LENGTH_LONG
-                                ).show();
-                            }
-                        }
-                );
-        SlangApplication.setDefaultContinuationMode(SlangSession.ContinuationMode.CONTINUE);
+            SlangBuddyOptions options = new SlangBuddyOptions.Builder()
+                    .setContext(application_context)
+                    .setBuddyId(application_context.getString(R.string.buddyId))
+                    .setAPIKey(application_context.getString(R.string.authKey))
+                    .setIntentAction(new SlangAction()) // Pass the instance of the intent handler
+                    .setRequestedLocales(SlangLocale.getSupportedLocales())
+                    .setDefaultLocale(SlangLocale.LOCALE_ENGLISH_IN)
+                    .build();
+
+            SlangBuddy.initialize(options);
+        } catch (SlangBuddyOptions.InvalidOptionException e) {
+            e.printStackTrace();
+        }catch (SlangBuddy.InsufficientPrivilegeException e) {
+            e.printStackTrace();
+        }
+
 
     }
 
 
-    private static void registerActions() throws SlangApplicationUninitializedException
-    {
-        // Action to handle user profile
-        SlangApplication.getIntentDescriptor("show_profile").setResolutionAction(new DefaultResolvedIntentAction() {
+    private static class SlangAction implements SlangIntentAction {
+        @Override
+        public Status action(SlangIntent intent, SlangSession session) {
+            switch (intent.getName()) {
+                case "home":
+                    handleHome();
+                    break;
 
-            @Override
-            public SlangSession.Status action(SlangResolvedIntent slangResolvedIntent, SlangSession slangSession) {
-                Intent i = new Intent(application_context, MainActivity.class);
+                case "show_profile":
+                    handleProfile();
+                    break;
 
-                i.putExtra(
-                        ActivityList.ACTIVITY_MODE,
-                        ActivityList.MODE_PROFILE
-                );
+                case "payment":
+                    handlePayment();
+                    break;
 
-                application_context.startActivity(i);
+                case "language":
+                    handleLanguage();
+                    break;
 
-                return slangSession.success();
-
+                case "page":
+                    handlePage();
+                    break;
             }
 
-        });
+            return SUCCESS;
+        }
 
+        private void handleHome(){
+            Intent i = new Intent(app_context, MainActivity.class);
+            i.putExtra(
+                    ActivityList.ACTIVITY_MODE,
+                    ActivityList.MODE_HOME
+            );
 
-        // Action to handle home page
-        SlangApplication.getIntentDescriptor("home").setResolutionAction(new DefaultResolvedIntentAction() {
+            app_context.startActivity(i);
+        }
 
-            @Override
-            public SlangSession.Status action(SlangResolvedIntent slangResolvedIntent, SlangSession slangSession) {
-                Intent i = new Intent(application_context, MainActivity.class);
+        private void handleProfile(){
+            Intent i = new Intent(app_context, MainActivity.class);
+            i.putExtra(
+                    ActivityList.ACTIVITY_MODE,
+                    ActivityList.MODE_PROFILE
+            );
 
-                i.putExtra(
-                        ActivityList.ACTIVITY_MODE,
-                        ActivityList.MODE_HOME
-                );
+            app_context.startActivity(i);
+        }
+        private void handlePayment(){
+            Intent i = new Intent(app_context, MainActivity.class);
+            i.putExtra(
+                    ActivityList.ACTIVITY_MODE,
+                    ActivityList.MODE_PAYMENT
+            );
 
-                application_context.startActivity(i);
+            app_context.startActivity(i);
+        }
 
-                return slangSession.success();
+        private void handleLanguage(){
+            Intent i = new Intent(app_context, MainActivity.class);
+            i.putExtra(
+                    ActivityList.ACTIVITY_MODE,
+                    ActivityList.MODE_LANGUAGE
+            );
 
-            }
+            app_context.startActivity(i);
+        }
 
-        });
+        private void handlePage(){
+            Intent i = new Intent(app_context, MainActivity.class);
+            i.putExtra(
+                    ActivityList.ACTIVITY_MODE,
+                    ActivityList.MODE_PAGE
+            );
 
-        // Action to handle user liked page
-        SlangApplication.getIntentDescriptor("page").setResolutionAction(new DefaultResolvedIntentAction() {
+            app_context.startActivity(i);
+        }
 
-            @Override
-            public SlangSession.Status action(SlangResolvedIntent slangResolvedIntent, SlangSession slangSession) {
-                Intent i = new Intent(application_context, MainActivity.class);
-
-                i.putExtra(
-                        ActivityList.ACTIVITY_MODE,
-                        ActivityList.MODE_PAGE
-                );
-
-                application_context.startActivity(i);
-
-                return slangSession.success();
-
-            }
-        });
-
-        // Action to handle language preference
-        SlangApplication.getIntentDescriptor("language").setResolutionAction(new DefaultResolvedIntentAction() {
-
-            @Override
-            public SlangSession.Status action(SlangResolvedIntent slangResolvedIntent, SlangSession slangSession) {
-                Intent i = new Intent(application_context, MainActivity.class);
-
-                i.putExtra(
-                        ActivityList.ACTIVITY_MODE,
-                        ActivityList.MODE_LANGUAGE
-                );
-
-                application_context.startActivity(i);
-
-                return slangSession.success();
-
-            }
-
-        });
-
-
-        // Action to handle payment setting
-        SlangApplication.getIntentDescriptor("payment").setResolutionAction(new DefaultResolvedIntentAction() {
-
-            @Override
-            public SlangSession.Status action(SlangResolvedIntent slangResolvedIntent, SlangSession slangSession) {
-                Intent i = new Intent(application_context, MainActivity.class);
-
-                i.putExtra(
-                        ActivityList.ACTIVITY_MODE,
-                        ActivityList.MODE_PAYMENT
-                );
-
-                application_context.startActivity(i);
-
-                return slangSession.success();
-
-            }
-
-        });
     }
-
 }

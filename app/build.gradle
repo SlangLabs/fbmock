@@ -22,7 +22,7 @@ dependencies {
 
     //slang dependencies
     implementation('in.slanglabs.sdk.android:slang_lib:+@aar') {
-        transitive = true
+        transitive=true
     }
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:25.+'
