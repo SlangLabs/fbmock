@@ -1,7 +1,7 @@
 # FacebookMock app
 This app is the mocked version of the Facebook App developed to demonstrates integration and working of slang voice interface.
 
-<img src="./images/slangMic.JPG" width="200px"> <img src="./images/slangVoiceRec.JPG" width="200px">
+<img src="./images/slang_mic.JPG" width="200px"> <img src="./images/slang_en_interface.JPG" width="200px"> <img src="./images/slang_hi_interface.jpg.JPG" width="200px">
 
 This app allows 5 primary functionality -
 
